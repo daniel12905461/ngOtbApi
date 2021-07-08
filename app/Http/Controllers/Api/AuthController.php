@@ -30,22 +30,33 @@ class AuthController extends Controller
 
     public function login(Request $request){
 
-        $data = $request->only('email', 'password');
-
-        if (! Auth::attempt($data)) {
-            return response()->json([
-                'ok' =>false,
-                'message'=> 'error de credenciales',
-            ]);
+//        $data = $request->only('email', 'password');
+        $val = '';
+        if ($request->email) {
+            $val = $request->email;
+        }
+        if ($request->username) {
+            $val = $request->username;
         }
 
-        $token = Auth::user()->createToken('authToken')->accessToken;
+        if(Auth::attempt(['email' => $val, 'password' => $request->password]) || Auth::attempt(['username' => $val, 'password' => $request->password])){
 
-        return response()->json([
-            'ok' =>true,
-            'user'=> Auth::user(),
-            'token'=>$token
-        ]);
+            $token = Auth::user()->createToken('authToken')->accessToken;
+
+            return response()->json([
+                'ok' =>true,
+                'user'=> Auth::user(),
+                'token'=>$token
+            ]);
+        } else {
+            return response()->json('Usuario no registrado', 409);
+        }
+//        if (! Auth::attempt($data)) {
+//            return response()->json([
+//                'ok' =>false,
+//                'message'=> 'error de credenciales',
+//            ]);
+//        }
     }
 
     public function me(){
