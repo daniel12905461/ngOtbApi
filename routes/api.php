@@ -1,10 +1,10 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +26,10 @@ Route::post('auth/login', [AuthController::class, 'login'])->name('api.auth.logi
 Route::get('auth/me', [AuthController::class, 'me'])
     ->middleware('auth:api');
 
-Route::post('message/send', [MessageController::class, 'send'])
-    ->middleware('auth:api');
+//Route::post('message/send', [MessageController::class, 'send'])
+//    ->middleware('auth:api');
+//
+//Route::post('message/sendDM', [MessageController::class, 'sendDM'])
+//    ->middleware('auth:api');
 
-Route::post('message/sendDM', [MessageController::class, 'sendDM'])
-    ->middleware('auth:api');
+Route::apiResource('users', 'App\Http\Controllers\Api\UserController');
