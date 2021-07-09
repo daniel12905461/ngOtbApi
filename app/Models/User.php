@@ -23,7 +23,13 @@ class User extends Authenticatable
         'enabled',
         'username',
         'password',
+
     ];
+    //    relacion de uno a muchos
+    public function rols()
+    {
+        return $this->belongsTo('App\Models\Rol');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -43,4 +49,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
 }
