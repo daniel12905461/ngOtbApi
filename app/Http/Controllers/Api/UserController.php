@@ -59,7 +59,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+
+            return response()->json(['ok' => true, 'data' => $user], 201);
+
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'user not found!', 'error' => $e], 404);
+        }
     }
 
     /**
@@ -86,8 +93,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
-        $user->enabled = $request->enabled;
-        $user->password = Hash::make($request->username);
+        $user->password = ($request->username)? Hash::make($request->username): $user->password;
         $user->save();
         return response()->json(['ok' => true, 'message' => ' se actualizo exitosamente'], 200);
 
@@ -121,11 +127,11 @@ class UserController extends Controller
             if ($user->enabled == true) {
                 $user->enabled = false;
                 $user->save();
-                return response()->json(['ok' => true, 'message' => 'Usuario inactivo'], 200);
+                return response()->json(['ok' => true, 'message' => 'Usuario inactivo'], 201);
             } else {
                 $user->enabled = true;
                 $user->save();
-                return response()->json(['ok' => true, 'message' => 'Usuario activo'], 200);
+                return response()->json(['ok' => true, 'message' => 'Usuario activo'], 201);
             }
         } catch (\Exception $e) {
             return response()->json(['ok' => false, 'message' => 'user not found!', 'error' => $e], 404);
