@@ -33,3 +33,4 @@ Route::get('auth/me', [AuthController::class, 'me'])
 //    ->middleware('auth:api');
 
 Route::apiResource('users', 'App\Http\Controllers\Api\UserController');
+Route::get('users/enabled/{id}', 'App\Http\Controllers\Api\UserController@enabled');

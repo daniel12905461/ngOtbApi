@@ -44,6 +44,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
+        $user->enabled = false;
         $user->password = Hash::make($request->username);
         $user->save();
 
@@ -81,10 +82,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
+        $user->enabled = $request->enabled;
         $user->password = Hash::make($request->username);
         $user->save();
         return response()->json(['ok' => true, 'message' => ' se actualizo exitosamente'], 200);
@@ -99,7 +101,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $usuario = User::find($id);
+        $usuario = User::findOrFail($id);
 
 
         if ($usuario) {
@@ -109,5 +111,24 @@ class UserController extends Controller
         }
 
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
+    }
+
+    public function enabled($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            if ($user->enabled == true) {
+                $user->enabled = false;
+                $user->save();
+                return response()->json(['ok' => true, 'message' => 'Usuario inactivo'], 200);
+            } else {
+                $user->enabled = true;
+                $user->save();
+                return response()->json(['ok' => true, 'message' => 'Usuario activo'], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'user not found!', 'error' => $e], 404);
+        }
     }
 }
