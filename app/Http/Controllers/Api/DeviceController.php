@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Device;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 
 class DeviceController extends Controller
@@ -55,7 +55,7 @@ class DeviceController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Device $device
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -85,7 +85,7 @@ class DeviceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Device $device
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -110,7 +110,7 @@ class DeviceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Device $device
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
