@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Device;
-use App\Models\Member;
+use App\Models\Parcel;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 
-class MemberController extends Controller
+class ParcelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,9 @@ class MemberController extends Controller
     public function index()
     {
         //
-        $members = Member::all();
-        return response()->json(['ok' => true, 'data' => $members], 200);
+        $parcels = Parcel::all();
+        return response()->json(['ok' => true, 'data' => $parcels], 200);
+
     }
 
     /**
@@ -41,43 +40,38 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         //
-        $members = new Member();
-        $members->name = $request->name;
-        $members->dad_last_name = $request->dad_last_name;
-        $members->mom_last_name = $request->mom_last_name;
-        $members->dir_foto = $request->dir_foto;
-        $members->ci = $request->ci;
-        $members->phone = $request->phone;
-        $members->birth_date = $request->birth_date;
-        $members->enabled = false;
-        $members->save();
+        $parcels = new Parcel();
+        $parcels->latitude = $request->latitude;
+        $parcels->length = $request->length;
+        $parcels->enabled = false;
+        $parcels->save();
         return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Member $member
+     * @param \App\Models\Parcel $parcel
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
         try {
-            $data = Member::FindOrFail($id);
+            $data = Parcel::FindOrFail($id);
             return response()->json(['ok' => true, 'data' => $data], 201);
         } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'Member not found','error'=>$e],404);
+            return response()->json(['ok' => false, 'message' => 'Parcel not found', 'error' => $e], 404);
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Member $member
+     * @param \App\Models\Parcel $parcel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(Parcel $parcel)
     {
         //
     }
@@ -86,43 +80,40 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Member $member
+     * @param \App\Models\Parcel $parcel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
         try {
-            $members = Member::FindOrFail($id);
-            $members->name = $request->name;
-            $members->dad_last_name = $request->dad_last_name;
-            $members->mom_last_name = $request->mom_last_name;
-            $members->dir_foto = $request->dir_foto;
-            $members->ci = $request->ci;
-            $members->phone = $request->phone;
-            $members->birth_date = $request->birth_date;
-            $members->save();
+            $parcels = Parcel::FindOrFail($id);
+            $parcels->latitude = $request->latitude;
+            $parcels->length = $request->length;
+            $parcels->save();
             return response()->json(['ok' => true, 'message' => ' se actualizo exitosamanete'], 200);
-        }catch (\Exception $e){
-            return response()->json(['ok' => false, 'message' => 'Member not found!', 'error' => $e], 404);
+
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'Prcel not found!', 'error' => $e], 404);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Member $member
+     * @param \App\Models\Parcel $parcel
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        $member = Member::FindOrFail($id);
-        if ($member) {
-            $member->delete();
+        $parcel = Parcel::FindOrFail($id);
+        if ($parcel) {
+            $parcel->delete();
         } else {
-            return response()->json(['ok' => false, 'message' => 'Error does not exist member.'], 409);
+            return response()->json(['ok' => false, 'message' => 'Error does not exist parcel'], 409);
         }
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
     }
+
 }

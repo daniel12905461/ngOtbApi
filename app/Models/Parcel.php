@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Parcel extends Model
 {
     use HasFactory;
     //    relacion de uno a muchos
-    public function parcel()
+    public function members()
     {
-        return $this->hasMany('App\Models\Parcel');
+        return $this->belongsTo('App\Models\Member');
     }
 }

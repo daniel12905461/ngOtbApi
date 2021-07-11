@@ -38,3 +38,4 @@ Route::get('users/enabled/{id}', 'App\Http\Controllers\Api\UserController@enable
 Route::apiResource('rols', 'App\Http\Controllers\Api\RolController');
 Route::apiResource('devices', 'App\Http\Controllers\Api\DeviceController');
 Route::apiResource('members', 'App\Http\Controllers\Api\MemberController');
+Route::apiResource('parcels', 'App\Http\Controllers\Api\ParcelController');
