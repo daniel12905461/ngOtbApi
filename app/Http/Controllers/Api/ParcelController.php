@@ -44,6 +44,7 @@ class ParcelController extends Controller
         $parcel->latitude = $request->latitude;
         $parcel->length = $request->length;
         $parcel->enabled = false;
+        $parcel->member_id = $request->member_id;
         $parcel->save();
         return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
     }
@@ -90,6 +91,7 @@ class ParcelController extends Controller
             $parcel = Parcel::FindOrFail($id);
             $parcel->latitude = $request->latitude;
             $parcel->length = $request->length;
+            $parcel->member_id = $request->member_id;
             $parcel->save();
             return response()->json(['ok' => true, 'message' => ' se actualizo exitosamanete'], 200);
 
