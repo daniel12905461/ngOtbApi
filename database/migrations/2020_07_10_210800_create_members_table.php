@@ -21,7 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('dir_foto');
             $table->integer('ci');
             $table->string('phone');
-            $table->integer('birth_date');
+            $table->date('birth_date');
             $table->boolean('enabled');
             $table->timestamps();
         });
