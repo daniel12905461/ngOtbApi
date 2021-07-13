@@ -46,7 +46,7 @@ class ParcelController extends Controller
         $parcel->enabled = false;
         $parcel->member_id = $request->member_id;
         $parcel->save();
-        return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
+        return response()->json(['ok' => true, 'message' => 'Se creo exitosamente'], 200);
     }
 
     /**
