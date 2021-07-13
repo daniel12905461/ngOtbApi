@@ -16,7 +16,7 @@ class CreateCobroAguasTable extends Migration
         Schema::create('cobro_aguas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('mes');
+            $table->dateTime('mes');
             $table->timestamps();
         });
     }
