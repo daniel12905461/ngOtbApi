@@ -41,16 +41,16 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         //
-        $members = new Member();
-        $members->name = $request->name;
-        $members->dad_last_name = $request->dad_last_name;
-        $members->mom_last_name = $request->mom_last_name;
-        $members->dir_foto = $request->dir_foto;
-        $members->ci = $request->ci;
-        $members->phone = $request->phone;
-        $members->birth_date = $request->birth_date;
-        $members->enabled = false;
-        $members->save();
+        $member = new Member();
+        $member->name = $request->name;
+        $member->dad_last_name = $request->dad_last_name;
+        $member->mom_last_name = $request->mom_last_name;
+        $member->dir_foto = $request->dir_foto;
+        $member->ci = $request->ci;
+        $member->phone = $request->phone;
+        $member->birth_date = $request->birth_date;
+        $member->enabled = false;
+        $member->save();
         return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
     }
 
@@ -67,7 +67,7 @@ class MemberController extends Controller
             $data = Member::FindOrFail($id);
             return response()->json(['ok' => true, 'data' => $data], 201);
         } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'Member not found','error'=>$e],404);
+            return response()->json(['ok' => false, 'message' => 'Miembro no encontrado','error'=>$e],404);
         }
     }
 
@@ -93,18 +93,18 @@ class MemberController extends Controller
     {
         //
         try {
-            $members = Member::FindOrFail($id);
-            $members->name = $request->name;
-            $members->dad_last_name = $request->dad_last_name;
-            $members->mom_last_name = $request->mom_last_name;
-            $members->dir_foto = $request->dir_foto;
-            $members->ci = $request->ci;
-            $members->phone = $request->phone;
-            $members->birth_date = $request->birth_date;
-            $members->save();
+            $member = Member::FindOrFail($id);
+            $member->name = $request->name;
+            $member->dad_last_name = $request->dad_last_name;
+            $member->mom_last_name = $request->mom_last_name;
+            $member->dir_foto = $request->dir_foto;
+            $member->ci = $request->ci;
+            $member->phone = $request->phone;
+            $member->birth_date = $request->birth_date;
+            $member->save();
             return response()->json(['ok' => true, 'message' => ' se actualizo exitosamanete'], 200);
         }catch (\Exception $e){
-            return response()->json(['ok' => false, 'message' => 'Member not found!', 'error' => $e], 404);
+            return response()->json(['ok' => false, 'message' => 'Miembro no encontrado!', 'error' => $e], 404);
         }
     }
 
@@ -121,8 +121,26 @@ class MemberController extends Controller
         if ($member) {
             $member->delete();
         } else {
-            return response()->json(['ok' => false, 'message' => 'Error does not exist member.'], 409);
+            return response()->json(['ok' => false, 'message' => 'error no existe mienbro.'], 409);
         }
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
+    }
+    public function enabled($id)
+    {
+        try {
+            $member = Member::findOrFail($id);
+
+            if ($member->enabled == true) {
+                $member->enabled = false;
+                $member->save();
+                return response()->json(['ok' => true, 'message' => 'miembro inactivo'], 201);
+            } else {
+                $member->enabled = true;
+                $member->save();
+                return response()->json(['ok' => true, 'message' => 'miembro activo'], 201);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'miembro not found!', 'error' => $e], 404);
+        }
     }
 }

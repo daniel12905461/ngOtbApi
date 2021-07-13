@@ -36,8 +36,10 @@ Route::apiResource('users', 'App\Http\Controllers\Api\UserController');
 Route::get('users/enabled/{id}', 'App\Http\Controllers\Api\UserController@enabled');
 
 Route::apiResource('rols', 'App\Http\Controllers\Api\RolController');
+Route::get('rols/enabled/{id}', 'App\Http\Controllers\Api\RolController@enabled');
 Route::apiResource('devices', 'App\Http\Controllers\Api\DeviceController');
 Route::apiResource('members', 'App\Http\Controllers\Api\MemberController');
+Route::get('members/enabled/{id}', 'App\Http\Controllers\Api\MemberController@enabled');
 Route::apiResource('parcels', 'App\Http\Controllers\Api\ParcelController');
 Route::get('parcels/enabled/{id}', 'App\Http\Controllers\Api\ParcelController@enabled');
 Route::apiResource('settings', 'App\Http\Controllers\Api\SettingController');
