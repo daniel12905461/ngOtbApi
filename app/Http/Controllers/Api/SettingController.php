@@ -86,11 +86,11 @@ class SettingController extends Controller
     {
         //
         try {
-            $settings = Setting::findOrFail($id);
-            $settings->name = $request->name;
-            $settings->dir_logo = $request->dir_logo;
-            $settings->color = $request->color;
-            $settings->save();
+            $setting = Setting::findOrFail($id);
+            $setting->name = $request->name;
+            $setting->dir_logo = $request->dir_logo;
+            $setting->color = $request->color;
+            $setting->save();
             return response()->json(['ok' => true, 'message' => 'Se actualizo exitosamente'], 200);
         } catch (\Exception $e) {
             return response()->json(['ok' => false, 'message' => 'Ajustes not found!', 'error' => $e], 404);
