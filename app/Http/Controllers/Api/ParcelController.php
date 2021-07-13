@@ -40,11 +40,11 @@ class ParcelController extends Controller
     public function store(Request $request)
     {
         //
-        $parcels = new Parcel();
-        $parcels->latitude = $request->latitude;
-        $parcels->length = $request->length;
-        $parcels->enabled = false;
-        $parcels->save();
+        $parcel = new Parcel();
+        $parcel->latitude = $request->latitude;
+        $parcel->length = $request->length;
+        $parcel->enabled = false;
+        $parcel->save();
         return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
     }
 
@@ -61,7 +61,7 @@ class ParcelController extends Controller
             $data = Parcel::FindOrFail($id);
             return response()->json(['ok' => true, 'data' => $data], 201);
         } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'Parcel not found', 'error' => $e], 404);
+            return response()->json(['ok' => false, 'message' => 'terreno no encontrado', 'error' => $e], 404);
         }
     }
 
@@ -87,14 +87,14 @@ class ParcelController extends Controller
     {
         //
         try {
-            $parcels = Parcel::FindOrFail($id);
-            $parcels->latitude = $request->latitude;
-            $parcels->length = $request->length;
-            $parcels->save();
+            $parcel = Parcel::FindOrFail($id);
+            $parcel->latitude = $request->latitude;
+            $parcel->length = $request->length;
+            $parcel->save();
             return response()->json(['ok' => true, 'message' => ' se actualizo exitosamanete'], 200);
 
         } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'Prcel not found!', 'error' => $e], 404);
+            return response()->json(['ok' => false, 'message' => 'terreno no encontrado!', 'error' => $e], 404);
         }
     }
 
@@ -111,7 +111,7 @@ class ParcelController extends Controller
         if ($parcel) {
             $parcel->delete();
         } else {
-            return response()->json(['ok' => false, 'message' => 'Error does not exist parcel'], 409);
+            return response()->json(['ok' => false, 'message' => 'Error no existe terreno'], 409);
         }
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
     }
