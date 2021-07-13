@@ -39,10 +39,10 @@ class CobroAguaController extends Controller
     public function store(Request $request)
     {
         //
-        $cobro_aguas = new CobroAgua();
-        $cobro_aguas->name = $request->name;
-        $cobro_aguas->mes = $request->mes;
-        $cobro_aguas->save();
+        $cobro_agua = new CobroAgua();
+        $cobro_agua->name = $request->name;
+        $cobro_agua->mes = $request->mes;
+        $cobro_agua->save();
         return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
 
     }
@@ -86,10 +86,10 @@ class CobroAguaController extends Controller
     {
         //
         try {
-            $cobro_aguas = CobroAgua::findOrFail($id);
-            $cobro_aguas->name = $request->name;
-            $cobro_aguas->mes = $request->mes;
-            $cobro_aguas->save();
+            $cobro_agua = CobroAgua::findOrFail($id);
+            $cobro_agua->name = $request->name;
+            $cobro_agua->mes = $request->mes;
+            $cobro_agua->save();
             return response()->json(['ok' => true, 'message' => 'Se actualizo exitosamente'], 200);
         } catch (\Exception $e) {
             return response()->json(['ok' => false, 'message' => 'Cobro de agua not found!', 'error' => $e], 404);
