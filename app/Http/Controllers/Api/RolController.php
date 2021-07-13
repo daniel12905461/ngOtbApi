@@ -56,6 +56,12 @@ class RolController extends Controller
     public function show($id)
     {
         //
+        try {
+            $data = Rol::FindOrFail($id);
+            return response()->json(['ok' => true, 'data' => $data], 201);
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'Rol no encontrado', 'error' => $e], 404);
+        }
     }
 
     /**
