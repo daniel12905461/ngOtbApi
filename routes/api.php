@@ -46,6 +46,6 @@ Route::get('members/parcels/getall', 'App\Http\Controllers\Api\MemberController@
 Route::apiResource('parcels', 'App\Http\Controllers\Api\ParcelController');
 Route::get('parcels/enabled/{id}', 'App\Http\Controllers\Api\ParcelController@enabled');
 Route::apiResource('settings', 'App\Http\Controllers\Api\SettingController');
-Route::get('settings/enabled/{id}', 'App\Http\Controllers\Api\SettingController@enabled');
+
 Route::apiResource('cobro_aguas', 'App\Http\Controllers\Api\CobroAguaController');
 Route::get('cobro_aguas/enabled/{id}', 'App\Http\Controllers\Api\CobroAguaController@enabled');

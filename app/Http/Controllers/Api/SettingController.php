@@ -122,22 +122,4 @@ class SettingController extends Controller
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
     }
 
-    public function enabled($id)
-    {
-        try {
-            $setting = Setting::findOrFail($id);
-
-            if ($setting->enabled == true) {
-                $setting->enabled = false;
-                $setting->save();
-                return response()->json(['ok' => true, 'message' => 'Ajustes inactivo'], 201);
-            } else {
-                $setting->enabled = true;
-                $setting->save();
-                return response()->json(['ok' => true, 'message' => 'Ajustes activo'], 201);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'ajustes no encontrado!', 'error' => $e], 404);
-        }
-    }
 }
