@@ -143,4 +143,10 @@ class MemberController extends Controller
             return response()->json(['ok' => false, 'message' => 'miembro not found!', 'error' => $e], 404);
         }
     }
+
+    public function getAllMemberswithParcels(){
+
+        $members = Member::with('parcels')->get();
+        return response()->json(['ok' => true, 'data' => $members], 200);
+    }
 }

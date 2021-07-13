@@ -11,13 +11,19 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         //
         $settings = Setting::all();
-        return response()->json(['ok' => true, 'data' => $settings], 200);
+
+        if (sizeof($settings) == 1) {
+            return response()->json(['ok' => true, 'data' => $settings[0]], 200);
+        } else {
+            return response()->json(['ok' => false, 'message' => 'No existe ninguna configuracion'], 409);
+        }
+
     }
 
     /**
@@ -34,7 +40,7 @@ class SettingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -44,14 +50,14 @@ class SettingController extends Controller
         $setting->dir_logo = $request->dir_logo;
         $setting->color = $request->color;
         $setting->save();
-        return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
+        return response()->json(['ok' => true, 'message' => 'Se creo exitosamente'], 200);
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Models\setting $setting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -80,7 +86,7 @@ class SettingController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\setting $setting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -102,7 +108,7 @@ class SettingController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\setting $setting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {

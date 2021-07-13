@@ -9,7 +9,7 @@ class Member extends Model
 {
     use HasFactory;
     //    relacion de uno a muchos
-    public function parcel()
+    public function parcels()
     {
         return $this->hasMany('App\Models\Parcel');
     }
