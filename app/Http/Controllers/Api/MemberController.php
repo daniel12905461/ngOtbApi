@@ -45,7 +45,7 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->dad_last_name = $request->dad_last_name;
         $member->mom_last_name = $request->mom_last_name;
-        $member->dir_foto = $request->dir_foto;
+        $member->dir_photo = $request->dir_photo;
         $member->ci = $request->ci;
         $member->phone = $request->phone;
         $member->birth_date = $request->birth_date;
@@ -97,7 +97,7 @@ class MemberController extends Controller
             $member->name = $request->name;
             $member->dad_last_name = $request->dad_last_name;
             $member->mom_last_name = $request->mom_last_name;
-            $member->dir_foto = $request->dir_foto;
+            $member->dir_photo = $request->dir_photo;
             $member->ci = $request->ci;
             $member->phone = $request->phone;
             $member->birth_date = $request->birth_date;

@@ -18,7 +18,7 @@ class CreateMembersTable extends Migration
             $table->string('name')->nullable();
             $table->string('dad_last_name')->nullable();
             $table->string('mom_last_name');
-            $table->string('dir_foto');
+            $table->string('dir_photo');
             $table->integer('ci');
             $table->string('phone');
             $table->date('birth_date');
