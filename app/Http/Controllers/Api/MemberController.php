@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Device;
 use App\Models\Member;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         //
-        $members = Member::all();
+        $members = Member::latest()->get();
         return response()->json(['ok' => true, 'data' => $members], 200);
     }
 
@@ -36,22 +34,34 @@ class MemberController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
-        $member = new Member();
-        $member->name = $request->name;
-        $member->dad_last_name = $request->dad_last_name;
-        $member->mom_last_name = $request->mom_last_name;
-        $member->dir_photo = $request->dir_photo;
-        $member->ci = $request->ci;
-        $member->phone = $request->phone;
-        $member->birth_date = $request->birth_date;
-        $member->enabled = false;
-        $member->save();
-        return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
+        try {
+
+            $member = new Member();
+            $member->name = $request->name;
+            $member->dad_last_name = $request->dad_last_name;
+            $member->mom_last_name = $request->mom_last_name;
+            $member->dir_photo = null;
+            $file = $request->file('photo');
+            if ($request->hasFile('photo')) {
+//                abort('500', 'error en aqui');
+                $member->dir_photo = $file->store('public/members');
+            }
+            $member->ci = $request->ci;
+            $member->phone = $request->phone;
+            $member->birth_date = $request->birth_date;
+            $member->enabled = false;
+            $member->save();
+
+            return response()->json(['ok' => true, 'message' => ' se creo exitosamente'], 200);
+        } catch (\Exception $e) {
+
+            return response()->json(['ok' => false, 'message' => 'Miembro no encontrado', 'error' => $e->getMessage()], 404);
+        }
+
     }
 
     /**
@@ -67,7 +77,7 @@ class MemberController extends Controller
             $data = Member::FindOrFail($id);
             return response()->json(['ok' => true, 'data' => $data], 201);
         } catch (\Exception $e) {
-            return response()->json(['ok' => false, 'message' => 'Miembro no encontrado','error'=>$e],404);
+            return response()->json(['ok' => false, 'message' => 'Miembro no encontrado', 'error' => $e], 404);
         }
     }
 
@@ -103,7 +113,7 @@ class MemberController extends Controller
             $member->birth_date = $request->birth_date;
             $member->save();
             return response()->json(['ok' => true, 'message' => ' se actualizo exitosamanete'], 200);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(['ok' => false, 'message' => 'Miembro no encontrado!', 'error' => $e], 404);
         }
     }
@@ -125,6 +135,7 @@ class MemberController extends Controller
         }
         return response()->json(['ok' => true, 'message' => ' se elimino exitosamente'], 200);
     }
+
     public function enabled($id)
     {
         try {
@@ -144,7 +155,8 @@ class MemberController extends Controller
         }
     }
 
-    public function getAllMemberswithParcels(){
+    public function getAllMemberswithParcels()
+    {
 
         $members = Member::with('parcels')->get();
         return response()->json(['ok' => true, 'data' => $members], 200);
