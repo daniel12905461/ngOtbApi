@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Member extends Model
 {
@@ -19,12 +20,14 @@ class Member extends Model
      * @return string
      * muta la db solo en ejecucuion
      */
-    public function getDirPhotoAttribute($value)
+    protected $appends = ['url_photo'];
+
+    public function getUrlPhotoAttribute()
     {
-        if ($value !== null) {
-            return asset(Storage::url($value));
+        if (Str::contains($this->dir_photo, 'http')) {
+            return $this->dir_photo;
         } else {
-            return $value;
+            return asset(Storage::url($this->dir_photo));
         }
     }
     /**
