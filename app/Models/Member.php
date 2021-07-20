@@ -13,6 +13,12 @@ class Member extends Model
     protected $table = 'members';
 
     // concatenamos la url de la foto
+
+    /**
+     * @param $value
+     * @return string
+     * muta la db solo en ejecucuion
+     */
     public function getDirPhotoAttribute($value)
     {
         if ($value !== null) {
@@ -21,16 +27,16 @@ class Member extends Model
             return $value;
         }
     }
+    /**
+     *
+     * cambia la db  cuando pasa por aqui
+     */
 
-    public function setDirPhotoAttribute($value)
-    {
-        $this->attributes['dir_photos'] = 'hola';
-    }
+//    public function setDirPhotoAttribute($value)
+//    {
+//        $this->attributes['dir_photo'] = Storage::url('file.jpg');
+//    }
 
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = 'hola';
-    }
 
     //    relacion de uno a muchos
     public function parcels()
