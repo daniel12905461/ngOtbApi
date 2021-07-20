@@ -115,10 +115,10 @@ class MemberController extends Controller
             $file = $request->file('photo');
             if ($request->hasFile('photo')) {
 //                abort('500', 'error en aqui');
-                if(File::exists($member->dir_photo)){
+//                if(File::exists($member->dir_photo)){
 //                    unlink($member->dir_photo);
                     Storage::delete($member->dir_photo);
-                }
+//                }
                 $member->dir_photo = $file->store('public/members');
                 
             }
@@ -143,6 +143,7 @@ class MemberController extends Controller
         //
         $member = Member::FindOrFail($id);
         if ($member) {
+            Storage::delete($member->dir_photo);
             $member->delete();
         } else {
             return response()->json(['ok' => false, 'message' => 'error no existe mienbro.'], 409);
