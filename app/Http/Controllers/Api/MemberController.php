@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MemberController extends Controller
 {
@@ -73,6 +75,7 @@ class MemberController extends Controller
     public function show($id)
     {
         //
+
         try {
             $data = Member::FindOrFail($id);
             return response()->json(['ok' => true, 'data' => $data], 201);
@@ -101,13 +104,24 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return response()->json(['ok' => true, 'message' =>$request], 200);
         //
         try {
             $member = Member::FindOrFail($id);
             $member->name = $request->name;
             $member->dad_last_name = $request->dad_last_name;
             $member->mom_last_name = $request->mom_last_name;
-            $member->dir_photo = $request->dir_photo;
+            // $member->dir_photo = member;
+            $file = $request->file('photo');
+            if ($request->hasFile('photo')) {
+//                abort('500', 'error en aqui');
+                if(File::exists($member->dir_photo)){
+//                    unlink($member->dir_photo);
+                    Storage::delete($member->dir_photo);
+                }
+                $member->dir_photo = $file->store('public/members');
+                
+            }
             $member->ci = $request->ci;
             $member->phone = $request->phone;
             $member->birth_date = $request->birth_date;
