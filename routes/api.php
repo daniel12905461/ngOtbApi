@@ -49,3 +49,9 @@ Route::apiResource('settings', 'App\Http\Controllers\Api\SettingController');
 
 Route::apiResource('cobro_aguas', 'App\Http\Controllers\Api\CobroAguaController');
 Route::get('cobro_aguas/enabled/{id}', 'App\Http\Controllers\Api\CobroAguaController@enabled');
+
+Route::apiResource('prices', 'App\Http\Controllers\Api\PriceController');
+
+Route::apiResource('monthly_payments', 'App\Http\Controllers\Api\MonthlyPaymentController');
+
+Route::apiResource('payments', 'App\Http\Controllers\Api\PaymentController');

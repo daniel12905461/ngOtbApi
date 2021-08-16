@@ -20,6 +20,7 @@ class MemberController extends Controller
         //
         $members = Member::latest()->get();
         return response()->json(['ok' => true, 'data' => $members], 200);
+        // return response()->json($members, 200);
     }
 
     /**
