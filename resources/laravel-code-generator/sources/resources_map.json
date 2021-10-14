@@ -1,0 +1,6 @@
+[
+    {
+        "model-name": "CuentaIngreso",
+        "resource-file": "cuenta_ingresos.json"
+    }
+]
