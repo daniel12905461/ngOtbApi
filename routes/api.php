@@ -1,10 +1,9 @@
 <?php
 
 
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,20 +31,37 @@ Route::get('auth/me', [AuthController::class, 'me'])
 //Route::post('message/sendDM', [MessageController::class, 'sendDM'])
 //    ->middleware('auth:api');
 
-Route::apiResource('users', 'App\Http\Controllers\Api\UserController');
-Route::get('users/enabled/{id}', 'App\Http\Controllers\Api\UserController@enabled');
+Route::apiResource('users', 'Api\UserController');
+Route::get('users/enabled/{id}', 'Api\UserController@enabled');
 
-Route::apiResource('rols', 'App\Http\Controllers\Api\RolController');
-Route::get('rols/enabled/{id}', 'App\Http\Controllers\Api\RolController@enabled');
-Route::apiResource('devices', 'App\Http\Controllers\Api\DeviceController');
+Route::apiResource('rols', 'Api\RolController');
+Route::get('rols/enabled/{id}', 'Api\RolController@enabled');
+Route::apiResource('devices', 'Api\DeviceController');
 
-Route::apiResource('members', 'App\Http\Controllers\Api\MemberController');
-Route::get('members/enabled/{id}', 'App\Http\Controllers\Api\MemberController@enabled');
-Route::get('members/parcels/getall', 'App\Http\Controllers\Api\MemberController@getAllMemberswithParcels');
+Route::apiResource('members', 'Api\MemberController');
+Route::get('members/enabled/{id}', 'Api\MemberController@enabled');
+Route::get('members/parcels/getall', 'Api\MemberController@getAllMemberswithParcels');
 
-Route::apiResource('parcels', 'App\Http\Controllers\Api\ParcelController');
-Route::get('parcels/enabled/{id}', 'App\Http\Controllers\Api\ParcelController@enabled');
-Route::apiResource('settings', 'App\Http\Controllers\Api\SettingController');
+Route::apiResource('parcels', 'Api\ParcelController');
+Route::get('parcels/enabled/{id}', 'Api\ParcelController@enabled');
+Route::apiResource('settings', 'Api\SettingController');
 
-Route::apiResource('cobro_aguas', 'App\Http\Controllers\Api\CobroAguaController');
-Route::get('cobro_aguas/enabled/{id}', 'App\Http\Controllers\Api\CobroAguaController@enabled');
+Route::apiResource('cobro_aguas', 'Api\CobroAguaController');
+Route::get('cobro_aguas/enabled/{id}', 'Api\CobroAguaController@enabled');
+
+Route::apiResource('tipo_moneda', "Api\TipoMonedasController");
+
+Route::group([
+    'prefix' => 'cuenta_ingresos',
+], function () {
+    Route::get('/', 'Api\CuentaIngresosController@index')
+        ->name('api.cuenta_ingresos.cuenta_ingreso.index');
+    Route::get('/show/{cuentaIngreso}', 'Api\CuentaIngresosController@show')
+        ->name('api.cuenta_ingresos.cuenta_ingreso.show')->where('id', '[0-9]+');
+    Route::post('/', 'Api\CuentaIngresosController@store')
+        ->name('api.cuenta_ingresos.cuenta_ingreso.store');
+    Route::put('cuenta_ingreso/{cuentaIngreso}', 'Api\CuentaIngresosController@update')
+        ->name('api.cuenta_ingresos.cuenta_ingreso.update')->where('id', '[0-9]+');
+    Route::delete('/cuenta_ingreso/{cuentaIngreso}', 'Api\CuentaIngresosController@destroy')
+        ->name('api.cuenta_ingresos.cuenta_ingreso.destroy')->where('id', '[0-9]+');
+});
