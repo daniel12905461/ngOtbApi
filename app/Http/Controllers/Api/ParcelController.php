@@ -16,7 +16,7 @@ class ParcelController extends Controller
     public function index()
     {
         //
-        $parcels = Parcel::all();
+        $parcels = Parcel::with('member')->get();
         return response()->json(['ok' => true, 'data' => $parcels], 200);
 
     }

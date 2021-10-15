@@ -51,6 +51,16 @@ Route::get('cobro_aguas/enabled/{id}', 'Api\CobroAguaController@enabled');
 
 Route::apiResource('tipo_moneda', "Api\TipoMonedasController");
 
+Route::apiResource('cobro_aguas', 'Api\CobroAguaController');
+Route::get('cobro_aguas/enabled/{id}', 'Api\CobroAguaController@enabled');
+
+Route::apiResource('prices', 'Api\PriceController');
+
+Route::apiResource('monthly_payments', 'Api\MonthlyPaymentController');
+
+Route::apiResource('payments', 'Api\PaymentController');
+
+
 Route::group([
     'prefix' => 'cuenta_ingresos',
 ], function () {
@@ -81,6 +91,7 @@ Route::group([
         ->name('api.cuenta_egresos.cuenta_egreso.destroy')->where('id', '[0-9]+');
 });
 
+
 Route::group([
     'prefix' => 'egresos',
 ], function () {
@@ -110,3 +121,4 @@ Route::group([
     Route::delete('/ingreso/{ingreso}', 'Api\IngresosController@destroy')
         ->name('api.ingresos.ingreso.destroy')->where('id', '[0-9]+');
 });
+
