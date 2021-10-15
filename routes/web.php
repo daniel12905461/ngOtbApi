@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('api-docs/ingresos', 'ApiDocs\IngresosController@index')
+    ->name('api-docs.ingresos.ingreso.index');

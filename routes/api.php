@@ -65,3 +65,48 @@ Route::group([
     Route::delete('/cuenta_ingreso/{cuentaIngreso}', 'Api\CuentaIngresosController@destroy')
         ->name('api.cuenta_ingresos.cuenta_ingreso.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'cuenta_egresos',
+], function () {
+    Route::get('/', 'Api\CuentaEgresosController@index')
+        ->name('api.cuenta_egresos.cuenta_egreso.index');
+    Route::get('/show/{cuentaEgreso}', 'Api\CuentaEgresosController@show')
+        ->name('api.cuenta_egresos.cuenta_egreso.show')->where('id', '[0-9]+');
+    Route::post('/', 'Api\CuentaEgresosController@store')
+        ->name('api.cuenta_egresos.cuenta_egreso.store');
+    Route::put('cuenta_egreso/{cuentaEgreso}', 'Api\CuentaEgresosController@update')
+        ->name('api.cuenta_egresos.cuenta_egreso.update')->where('id', '[0-9]+');
+    Route::delete('/cuenta_egreso/{cuentaEgreso}', 'Api\CuentaEgresosController@destroy')
+        ->name('api.cuenta_egresos.cuenta_egreso.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'egresos',
+], function () {
+    Route::get('/', 'Api\EgresosController@index')
+        ->name('api.egresos.egreso.index');
+    Route::get('/show/{egreso}', 'Api\EgresosController@show')
+        ->name('api.egresos.egreso.show')->where('id', '[0-9]+');
+    Route::post('/', 'Api\EgresosController@store')
+        ->name('api.egresos.egreso.store');
+    Route::put('egreso/{egreso}', 'Api\EgresosController@update')
+        ->name('api.egresos.egreso.update')->where('id', '[0-9]+');
+    Route::delete('/egreso/{egreso}', 'Api\EgresosController@destroy')
+        ->name('api.egresos.egreso.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'ingresos',
+], function () {
+    Route::get('/', 'Api\IngresosController@index')
+        ->name('api.ingresos.ingreso.index');
+    Route::get('/show/{ingreso}', 'Api\IngresosController@show')
+        ->name('api.ingresos.ingreso.show')->where('id', '[0-9]+');
+    Route::post('/', 'Api\IngresosController@store')
+        ->name('api.ingresos.ingreso.store');
+    Route::put('ingreso/{ingreso}', 'Api\IngresosController@update')
+        ->name('api.ingresos.ingreso.update')->where('id', '[0-9]+');
+    Route::delete('/ingreso/{ingreso}', 'Api\IngresosController@destroy')
+        ->name('api.ingresos.ingreso.destroy')->where('id', '[0-9]+');
+});
