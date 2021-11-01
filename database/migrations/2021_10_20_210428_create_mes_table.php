@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTipoMonedasTable extends Migration
+class CreateMesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +13,12 @@ class CreateTipoMonedasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_monedas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre', 50)->nullable();
-            $table->string('abreviatura', 20)->nullable();
-            $table->integer('activo')->nullable();
+        Schema::create('mes', function(Blueprint $table)
+        {
+            $table->id();
             $table->timestamps();
+            $table->string('nombre')->nullable();
+            $table->string('gestion')->nullable();
 
         });
     }
@@ -29,6 +30,6 @@ class CreateTipoMonedasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tipo_monedas');
+        Schema::drop('mes');
     }
 }

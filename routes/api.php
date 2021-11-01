@@ -63,10 +63,6 @@ Route::apiResource('monthly_payments', 'Api\MonthlyPaymentController');
 
 Route::apiResource('payments', 'Api\PaymentController');
 
-Route::apiResource('meses', 'Api\MesController');
-Route::get('meses/deudas_meses/{parcel_id}', 'Api\MesController@deudaPorMeses');
-
-Route::apiResource('lecturas', 'Api\LecturaController');
 
 Route::group([
     'prefix' => 'cuenta_ingresos',
@@ -129,3 +125,35 @@ Route::group([
         ->name('api.ingresos.ingreso.destroy')->where('id', '[0-9]+');
 });
 
+
+Route::group([
+    'prefix' => 'mes',
+], function () {
+    Route::get('/', 'Api\MesController@index')
+        ->name('api.mes.mes.index');
+    Route::get('/show/{mes}', 'Api\MesController@show')
+        ->name('api.mes.mes.show')->where('id', '[0-9]+');
+    Route::post('/', 'Api\MesController@store')
+        ->name('api.mes.mes.store');
+    Route::put('mes/{mes}', 'Api\MesController@update')
+        ->name('api.mes.mes.update')->where('id', '[0-9]+');
+    Route::delete('/mes/{mes}', 'Api\MesController@destroy')
+        ->name('api.mes.mes.destroy')->where('id', '[0-9]+');
+//    Route::get('mes/deudas_meses/{parcel_id}', 'Api\MesController@deudaPorMeses')
+//        ->name('api.mes.mes.destroy');
+});
+
+Route::group([
+    'prefix' => 'lecturas',
+], function () {
+    Route::get('/', 'Api\LecturasController@index')
+        ->name('api.lecturas.lectura.index');
+    Route::get('/show/{lectura}', 'Api\LecturasController@show')
+        ->name('api.lecturas.lectura.show');
+    Route::post('/', 'Api\LecturasController@store')
+        ->name('api.lecturas.lectura.store');
+    Route::put('lectura/{lectura}', 'Api\LecturasController@update')
+        ->name('api.lecturas.lectura.update');
+    Route::delete('/lectura/{lectura}', 'Api\LecturasController@destroy')
+        ->name('api.lecturas.lectura.destroy');
+});

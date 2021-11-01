@@ -1,0 +1,14 @@
+php artisan resource-file:create TipoMoneda --fields=id,nombre,activo --translation-for=en,ar
+php artisan create:scaffold  CuentaIngreso --with-migration --fields=id,nombre,costo,activo
+php artisan create:api-scaffold  CuentaIngreso --with-migration --fields=id,nombre,costo,activo
+php artisan create:api-scaffold  CuentaEgreso --with-migration --fields=id,nombre,costo,activo
+php artisan create:api-scaffold  CuentaEgreso --with-migration --fields=id,nombre,costo,activo,nose --force  # cueando editas pones --force
+php artisan create:api-scaffold  Egreso --with-migration --fields=id,fecha,mes,concepto,monto_importe,descripcion,tipo_moneda_id,cuenta_egresos_id
+php artisan create:api-scaffold  Ingreso --with-migration --fields=id,fecha,mes,concepto,monto_importe,descripcion,tipo_moneda_id,cuenta_egresos_id,parcels_id,menbers_id
+
+
+php artisan create:api-scaffold  Mes --with-migration --fields=id,nombre,gestion
+
+
+
+php artisan create:api-scaffold  Lectura --table-exists

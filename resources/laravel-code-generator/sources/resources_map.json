@@ -14,5 +14,14 @@
     {
         "model-name": "Ingreso",
         "resource-file": "ingresos.json"
+    },
+    {
+        "model-name": "Mes",
+        "resource-file": "mes.json"
+    },
+    {
+        "model-name": "Lectura",
+        "resource-file": "lecturas.json",
+        "table-name": "lecturas"
     }
 ]
