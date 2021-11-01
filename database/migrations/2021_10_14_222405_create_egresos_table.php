@@ -23,6 +23,7 @@ class CreateEgresosTable extends Migration
             $table->string('descripcion')->nullable();
             $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
             $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
+            $table->integer('mes_id')->unsigned()->nullable()->index();
 
         });
     }

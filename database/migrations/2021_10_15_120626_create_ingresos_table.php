@@ -20,10 +20,13 @@ class CreateIngresosTable extends Migration
             $table->string('concepto')->nullable();
             $table->string('monto_importe')->nullable();
             $table->string('descripcion')->nullable();
+            $table->string('pagado')->nullable();
             $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
             $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
-            $table->integer('parcels_id')->unsigned()->nullable()->index();
-            $table->integer('menbers_id')->unsigned()->nullable()->index();
+            $table->integer('parcel_id')->unsigned()->nullable()->index();
+            $table->integer('menber_id')->unsigned()->nullable()->index();
+            $table->integer('lectura_id')->unsigned()->nullable()->index();
+            $table->integer('mes_id')->unsigned()->nullable()->index();
             $table->timestamps();
         });
     }

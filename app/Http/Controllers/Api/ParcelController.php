@@ -136,4 +136,9 @@ class ParcelController extends Controller
             return response()->json(['ok' => false, 'message' => 'Parcel not found!', 'error' => $e], 404);
         }
     }
+
+    public function deudaMes(){
+        $parcels = Parcel::with('ingresos')->get();
+        return response()->json(['ok' => true, 'data' => $parcels], 200);
+    }
 }

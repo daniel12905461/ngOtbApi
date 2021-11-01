@@ -36,6 +36,7 @@ Route::get('users/enabled/{id}', 'Api\UserController@enabled');
 
 Route::apiResource('rols', 'Api\RolController');
 Route::get('rols/enabled/{id}', 'Api\RolController@enabled');
+
 Route::apiResource('devices', 'Api\DeviceController');
 
 Route::apiResource('members', 'Api\MemberController');
@@ -44,6 +45,8 @@ Route::get('members/parcels/getall', 'Api\MemberController@getAllMemberswithParc
 
 Route::apiResource('parcels', 'Api\ParcelController');
 Route::get('parcels/enabled/{id}', 'Api\ParcelController@enabled');
+Route::get('parcels/deuda_mes/{id}', 'Api\ParcelController@deudaMes');
+
 Route::apiResource('settings', 'Api\SettingController');
 
 Route::apiResource('cobro_aguas', 'Api\CobroAguaController');
@@ -60,6 +63,10 @@ Route::apiResource('monthly_payments', 'Api\MonthlyPaymentController');
 
 Route::apiResource('payments', 'Api\PaymentController');
 
+Route::apiResource('meses', 'Api\MesController');
+Route::get('meses/deudas_meses/{parcel_id}', 'Api\MesController@deudaPorMeses');
+
+Route::apiResource('lecturas', 'Api\LecturaController');
 
 Route::group([
     'prefix' => 'cuenta_ingresos',

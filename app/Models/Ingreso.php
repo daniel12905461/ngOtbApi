@@ -36,7 +36,8 @@ class Ingreso extends Model
         'tipo_moneda_id',
         'cuenta_egresos_id',
         'parcels_id',
-        'menbers_id'
+        'menbers_id',
+        'mes_id'
     ];
 
     /**
