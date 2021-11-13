@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Rol;
-use App\Models\TipoMoneda;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
 //         \App\Models\User::factory(1)->create();
 //        \App\Models\Rol::factory(3)->create();
-      $rol = new Rol();
+        $rol = new Rol();
         $rol->name = 'admin';
         $rol->name = 'admin';
         $rol->display_name = 'admin';
@@ -39,11 +38,16 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
 
-
         $this->call([
 
             MemberSeeder::class,
             TipoMonedaSeeder::class,
+            MesSeeder::class,
+            CuentaIngresoSeeder::class,
+            ParcelSeeder::class,
+            LecturaSeeder::class,
+            IngresoSeeder::class,
+
 
         ]);
 

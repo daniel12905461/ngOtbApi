@@ -15,9 +15,15 @@ class CreateLecturasTable extends Migration
     {
         Schema::create('lecturas', function (Blueprint $table) {
             $table->id();
-            $table->string('lectura_actual');
-            $table->dateTime('fecha');
-            $table->unsignedBigInteger('parcel_id');
+            $table->string('lecturaActual')->nullable();
+            $table->string('lecturaAnterior')->nullable();
+            $table->string('cubos')->nullable();
+            $table->string('cubosExeso')->nullable();
+            $table->string('total')->nullable();
+            $table->dateTime('fecha')->nullable();
+            $table->boolean('lecturado')->nullable();
+
+            $table->unsignedBigInteger('parcel_id')->nullable();
             $table->foreign('parcel_id')->references('id')->on('parcels')->onDelete('cascade');
 
             $table->unsignedBigInteger('mes_id');
