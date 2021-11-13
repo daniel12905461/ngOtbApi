@@ -53,6 +53,7 @@ Route::apiResource('cobro_aguas', 'Api\CobroAguaController');
 Route::get('cobro_aguas/enabled/{id}', 'Api\CobroAguaController@enabled');
 
 Route::apiResource('tipo_moneda', "Api\TipoMonedasController");
+Route::get('tipo_moneda/enabled/{id}', 'Api\TipoMonedasController@enabled');
 
 Route::apiResource('cobro_aguas', 'Api\CobroAguaController');
 Route::get('cobro_aguas/enabled/{id}', 'Api\CobroAguaController@enabled');
