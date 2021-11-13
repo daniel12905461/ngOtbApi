@@ -15,16 +15,16 @@ class CreateIngresosTable extends Migration
     {
         Schema::create('ingresos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fecha')->nullable();
+            $table->date('fecha')->nullable();
             $table->string('mes')->nullable();
             $table->string('concepto')->nullable();
-            $table->string('monto_importe')->nullable();
+            $table->double('monto_importe')->nullable();
             $table->string('descripcion')->nullable();
-            $table->string('pagado')->nullable();
+            $table->boolean('pagado')->nullable();
             $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
             $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
             $table->integer('parcel_id')->unsigned()->nullable()->index();
-            $table->integer('menber_id')->unsigned()->nullable()->index();
+            $table->integer('member_id')->unsigned()->nullable()->index();
             $table->integer('lectura_id')->unsigned()->nullable()->index();
             $table->integer('mes_id')->unsigned()->nullable()->index();
             $table->timestamps();

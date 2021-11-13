@@ -520,10 +520,10 @@
             "delimiter": "; ",
             "range": [],
             "foreign-relation": {
-                "name": "me",
+                "name": "mes",
                 "type": "belongsTo",
                 "params": [
-                    "App\\Models\\Me",
+                    "App\\Models\\Mes",
                     "mes_id"
                 ],
                 "field": "nombre"

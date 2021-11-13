@@ -16,10 +16,10 @@ class Ingreso extends Model
     protected $table = 'ingresos';
 
     /**
-     * The database primary key value.
-     *
-     * @var string
-     */
+    * The database primary key value.
+    *
+    * @var string
+    */
     protected $primaryKey = 'id';
 
     /**
@@ -28,17 +28,19 @@ class Ingreso extends Model
      * @var array
      */
     protected $fillable = [
-        'fecha',
-        'mes',
-        'concepto',
-        'monto_importe',
-        'descripcion',
-        'tipo_moneda_id',
-        'cuenta_egresos_id',
-        'parcels_id',
-        'menbers_id',
-        'mes_id'
-    ];
+                  'fecha',
+                  'mes',
+                  'concepto',
+                  'monto_importe',
+                  'descripcion',
+                  'pagado',
+                  'tipo_moneda_id',
+                  'cuenta_egresos_id',
+                  'parcel_id',
+                  'member_id',
+                  'lectura_id',
+                  'mes_id'
+              ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -61,7 +63,7 @@ class Ingreso extends Model
      */
     public function tipoMoneda()
     {
-        return $this->belongsTo('App\Models\TipoMoneda', 'tipo_moneda_id');
+        return $this->belongsTo('App\Models\TipoMoneda','tipo_moneda_id');
     }
 
     /**
@@ -71,7 +73,7 @@ class Ingreso extends Model
      */
     public function cuentaEgreso()
     {
-        return $this->belongsTo('App\Models\CuentaEgreso', 'cuenta_egresos_id');
+        return $this->belongsTo('App\Models\CuentaEgreso','cuenta_egresos_id');
     }
 
     /**
@@ -81,18 +83,59 @@ class Ingreso extends Model
      */
     public function parcel()
     {
-        return $this->belongsTo('App\Models\Parcel', 'parcels_id');
+        return $this->belongsTo('App\Models\Parcel','parcel_id');
     }
 
     /**
-     * Get the menber for this model.
+     * Get the member for this model.
      *
-     * @return App\Models\Menber
+     * @return App\Models\Member
      */
-    public function menber()
+    public function member()
     {
-        return $this->belongsTo('App\Models\Menber', 'menbers_id');
+        return $this->belongsTo('App\Models\Member','member_id');
     }
 
+    /**
+     * Get the lectura for this model.
+     *
+     * @return App\Models\Lectura
+     */
+    public function lectura()
+    {
+        return $this->belongsTo('App\Models\Lectura','lectura_id');
+    }
+
+    /**
+     * Get the me for this model.
+     *
+     * @return App\Models\Me
+     */
+    public function mes()
+    {
+        return $this->belongsTo('App\Models\Mes','mes_id');
+    }
+
+    /**
+     * Get created_at in array format
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
+    }
+
+    /**
+     * Get updated_at in array format
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getUpdatedAtAttribute($value)
+    {
+        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
+    }
 
 }
