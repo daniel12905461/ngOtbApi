@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Rol;
-use App\Models\TipoMoneda;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -39,11 +38,16 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
 
-
         $this->call([
 
             MemberSeeder::class,
             TipoMonedaSeeder::class,
+            MesSeeder::class,
+            CuentaIngresoSeeder::class,
+            ParcelSeeder::class,
+            LecturaSeeder::class,
+            IngresoSeeder::class,
+
 
         ]);
 

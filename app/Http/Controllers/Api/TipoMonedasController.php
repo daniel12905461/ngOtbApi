@@ -59,7 +59,8 @@ class TipoMonedasController extends Controller
         return [
             'id' => $tipoMoneda->id,
             'nombre' => $tipoMoneda->nombre,
-            'activo' => ($tipoMoneda->activo) ? 'Yes' : 'No',
+            'abreviatura' => $tipoMoneda->abreviatura,
+            'activo' => $tipoMoneda->activo,
         ];
     }
 
@@ -196,6 +197,25 @@ class TipoMonedasController extends Controller
             );
         } catch (Exception $exception) {
             return $this->errorResponse('Unexpected error occurred while trying to process your request.');
+        }
+    }
+
+    public function enabled($id)
+    {
+        try {
+            $cobro_agua = TipoMoneda::findOrFail($id);
+
+            if ($cobro_agua->activo == true) {
+                $cobro_agua->activo = false;
+                $cobro_agua->save();
+                return response()->json(['ok' => true, 'message' => 'Moneda  inactivo'], 201);
+            } else {
+                $cobro_agua->activo = true;
+                $cobro_agua->save();
+                return response()->json(['ok' => true, 'message' => 'Moneda  activo'], 201);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['ok' => false, 'message' => 'Moneda no encontrado!', 'error' => $e], 404);
         }
     }
 

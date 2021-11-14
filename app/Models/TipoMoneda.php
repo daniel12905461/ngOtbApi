@@ -30,6 +30,7 @@ class TipoMoneda extends Model
      */
     protected $fillable = [
         'nombre',
+        'abreviatura',
         'activo'
     ];
 

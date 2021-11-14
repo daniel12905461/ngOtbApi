@@ -22,10 +22,10 @@ class TipoMonedaFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->unique()->randomElements(['Bolivianos','Dolares estadounidences']),
-            'abreviatura' => $this->faker->unique()->randomElements(['BS','USD']),
-//            'activo' => 1,
-//            'updated_at' => now(),
+            'nombre' => $this->faker->unique()->randomElements(['Bolivianos','Dolares estadounidences'])[0],
+            'abreviatura' => $this->faker->unique()->randomElements(['BS','USD'])[0],
+           'activo' => 1,
+           'updated_at' => now(),
 
         ];
     }

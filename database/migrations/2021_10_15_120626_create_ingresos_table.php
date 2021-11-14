@@ -18,9 +18,9 @@ class CreateIngresosTable extends Migration
             $table->string('fecha')->nullable();
             // $table->string('mes')->nullable();
             $table->string('concepto')->nullable();
-            $table->string('monto_importe')->nullable();
+            $table->double('monto_importe')->nullable();
             $table->string('descripcion')->nullable();
-            $table->string('pagado')->nullable();
+            $table->boolean('pagado')->nullable();
             $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
             $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
             // $table->integer('parcel_id')->unsigned()->nullable()->index();
