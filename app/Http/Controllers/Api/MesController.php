@@ -62,16 +62,21 @@ class MesController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $validator = $this->getValidator($request);
+        // try {
+            // $validator = $this->getValidator($request);
 
-            if ($validator->fails()) {
-                return $this->errorResponse($validator->errors()->all());
-            }
+            // if ($validator->fails()) {
+            //     return $this->errorResponse($validator->errors()->all());
+            // }
 
-            $data = $this->getData($request);
+            // $data = $this->getData($request);
 
-            $mes = Mes::create($data);
+            // $mes = Mes::create($data);
+            $mes = new Mes();
+            $mes->name =  $request->input('name');
+            $mes->year =  $request->input('year');
+            $mes->enabled = true;
+            $mes->save();
 
             $parcels = Parcel::all();
 
@@ -92,9 +97,9 @@ class MesController extends Controller
                 'Mes was successfully added.',
                 $this->transform($mes)
             );
-        } catch (Exception $exception) {
-            return $this->errorResponse('Unexpected error occurred while trying to process your request.');
-        }
+        // } catch (Exception $exception) {
+        //     return $this->errorResponse('Unexpected error occurred while trying to process your request.');
+        // }
     }
 
     /**
@@ -219,6 +224,13 @@ class MesController extends Controller
             'nombre' => $mes->nombre,
             'gestion' => $mes->gestion,
         ];
+    }
+
+    public function mesesIngresosParcel($parcel_id){
+        $meses = Mes::with(['ingresos' => function ($q) use ($parcel_id) {
+            $q->where('pagado', 0)->where('parcel_id', $parcel_id);
+        }])->get();
+        return response()->json(['ok' => true, 'data' => $meses], 200);
     }
 
 }

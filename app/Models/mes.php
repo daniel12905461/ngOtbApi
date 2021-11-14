@@ -49,10 +49,14 @@ class Mes extends Model
     protected $casts = [];
 
 
+    // public function ingresos()
+    // {
+    //     return $this->hasMany('App\Models\Ingreso');
+    // }
+
     public function ingresos()
     {
-        return $this->hasMany('App\Models\Ingreso');
+        return $this->hasMany('App\Models\Ingreso','mes_id');
     }
-
 
 }

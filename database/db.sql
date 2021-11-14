@@ -6,5 +6,14 @@ insert into parcels(latitude,length,enabled,member_id) value
 ('123','321',1,1),
 ('123','321',1,2);
 
-insert into ingresos (fecha, mes, concepto, mes_id, parcel_id) value
-('1999-10-19','sdfsdf','sdfsd',1,1);
+insert into mes(name,year,enabled) value
+('enero','2021',1);
+
+insert into ingresos (fecha, concepto, pagado, mes_id, parcel_id) value
+('1999-10-19','sdfsd',0,1,1),
+('1999-10-19','sdfsd',0,1,1),
+('1999-10-19','sdfsd',1,1,1),
+('1999-10-19','sdfsd',1,1,1),
+('1999-10-19','sdfsd',1,1,2),
+('1999-10-19','sdfsd',1,1,2),
+('1999-10-19','sdfsd',0,1,2);

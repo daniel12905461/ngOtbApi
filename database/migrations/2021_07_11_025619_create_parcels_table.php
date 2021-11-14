@@ -14,7 +14,7 @@ class CreateParcelsTable extends Migration
     public function up()
     {
         Schema::create('parcels', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('latitude');
             $table->string('length');
             $table->boolean('enabled');

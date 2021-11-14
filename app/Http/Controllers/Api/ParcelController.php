@@ -137,8 +137,13 @@ class ParcelController extends Controller
         }
     }
 
-    public function deudaMes(){
-        $parcels = Parcel::with('ingresos')->get();
+    public function parcelIngresosMeses(Request $request){
+        $parcel_id = $request->parcel_id;
+        $mes_id = $request->mes_id;
+
+        $parcels = Parcel::where('id', $parcel_id)->with(['ingresos' => function ($q) use ($mes_id) {
+            $q->where('pagado', 0)->where('mes_id', $mes_id);
+        }])->get();
         return response()->json(['ok' => true, 'data' => $parcels], 200);
     }
 }

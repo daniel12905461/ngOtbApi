@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
 //         \App\Models\User::factory(1)->create();
 //        \App\Models\Rol::factory(3)->create();
-      $rol = new Rol();
+        $rol = new Rol();
         $rol->name = 'admin';
         $rol->name = 'admin';
         $rol->display_name = 'admin';

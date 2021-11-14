@@ -22,8 +22,10 @@ class CreateLecturasTable extends Migration
             $table->string('total')->nullable();
             $table->dateTime('fecha')->nullable();
             $table->boolean('lecturado')->nullable();
-            $table->integer('mes_id')->unsigned()->nullable()->index();
-            $table->integer('parcel_id')->unsigned()->nullable()->index();
+            $table->integer('parcel_id')->unsigned();
+            $table->foreign('parcel_id')->references('id')->on('parcels');
+            $table->integer('mes_id')->unsigned();
+            $table->foreign('mes_id')->references('id')->on('mes');
             $table->timestamps();
         });
     }
