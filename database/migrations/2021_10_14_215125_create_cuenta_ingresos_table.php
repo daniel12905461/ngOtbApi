@@ -13,7 +13,7 @@ class CreateCuentaIngresosTable extends Migration
     public function up()
     {
         Schema::create('cuenta_ingresos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre')->nullable();
             $table->string('costo')->nullable();
             $table->string('activo')->nullable();

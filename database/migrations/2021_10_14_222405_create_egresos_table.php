@@ -14,16 +14,16 @@ class CreateEgresosTable extends Migration
     public function up()
     {
         Schema::create('egresos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->string('fecha')->nullable();
             $table->string('mes')->nullable();
             $table->string('concepto')->nullable();
             $table->string('monto_importe')->nullable();
             $table->string('descripcion')->nullable();
-            $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
-            $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
-            $table->integer('mes_id')->unsigned()->nullable()->index();
+            $table->unsignedBigInteger('tipo_moneda_id')->unsigned()->nullable()->index();
+            $table->unsignedBigInteger('cuenta_egresos_id')->unsigned()->nullable()->index();
+            $table->unsignedBigInteger('mes_id')->unsigned()->nullable()->index();
 
         });
     }

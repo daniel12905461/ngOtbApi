@@ -13,7 +13,7 @@ class CreateTipoMonedasTable extends Migration
     public function up()
     {
         Schema::create('tipo_monedas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre', 50)->nullable();
             $table->string('abreviatura', 20)->nullable();
             $table->integer('activo')->nullable();

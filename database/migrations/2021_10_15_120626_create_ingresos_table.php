@@ -14,22 +14,33 @@ class CreateIngresosTable extends Migration
     public function up()
     {
         Schema::create('ingresos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('fecha')->nullable();
+            $table->id();
+            $table->timestamp('fecha')->nullable();
             // $table->string('mes')->nullable();
             $table->string('concepto')->nullable();
             $table->double('monto_importe')->nullable();
             $table->string('descripcion')->nullable();
             $table->boolean('pagado')->nullable();
-            $table->integer('tipo_moneda_id')->unsigned()->nullable()->index();
-            $table->integer('cuenta_egresos_id')->unsigned()->nullable()->index();
+
+            $table->unsignedBigInteger('tipo_moneda_id')->nullable();
+            $table->foreign('tipo_moneda_id')->references('id')->on('tipo_monedas');
+
+            $table->unsignedBigInteger('cuenta_ingresos_id')->nullable();
+            $table->foreign('cuenta_ingresos_id')->references('id')->on('cuenta_ingresos');
             // $table->integer('parcel_id')->unsigned()->nullable()->index();
-            $table->integer('menber_id')->unsigned()->nullable()->index();
-            $table->integer('lectura_id')->unsigned()->nullable()->index();
-            $table->integer('parcel_id')->unsigned()->nullable();
+
+            $table->unsignedBigInteger('member_id')->nullable();
+//            $table->foreign('lectura_id')->references('id')->on('lecturas');
+
+            $table->unsignedBigInteger('lectura_id')->nullable();
+//            $table->foreign('lectura_id')->references('id')->on('lecturas');
+
+            $table->unsignedBigInteger('parcel_id')->unsigned()->nullable();
             $table->foreign('parcel_id')->references('id')->on('parcels');
-            $table->integer('mes_id')->unsigned()->nullable();
+
+            $table->unsignedBigInteger('mes_id')->unsigned()->nullable();
             $table->foreign('mes_id')->references('id')->on('mes');
+
             $table->timestamps();
         });
     }

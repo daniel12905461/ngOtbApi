@@ -16,13 +16,13 @@ class IngresoSeeder extends Seeder
     {
         Ingreso::create([
             'fecha' => '2021-9-01', // todo Aqui esta mal hay que cambiar tipos por ejemplo fecha
-            'mes' => 'hoy',
+//            'mes' => 'hoy',
             'concepto' => 'por agua',
             'monto_importe' => '20',
             'descripcion' => '',
             'pagado' => 0,
             'tipo_moneda_id' => 1,
-            'cuenta_egresos_id' => 1,
+            'cuenta_ingresos_id' => 1,
             'parcel_id' => 1,
             'member_id' => null,
             'lectura_id' => 1,
