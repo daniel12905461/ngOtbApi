@@ -121,7 +121,7 @@ class MemberController extends Controller
                     Storage::delete($member->dir_photo);
 //                }
                 $member->dir_photo = $file->store('public/members');
-                
+
             }
             $member->ci = $request->ci;
             $member->phone = $request->phone;

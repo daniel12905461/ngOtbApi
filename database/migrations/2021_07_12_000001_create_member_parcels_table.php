@@ -13,7 +13,7 @@ class CreateMemberParcelTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_parcel', function (Blueprint $table) {
+        Schema::create('member_parcels', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('parcel_id');

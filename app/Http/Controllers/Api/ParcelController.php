@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lectura;
+use App\Models\Member;
 use App\Models\Parcel;
 use Illuminate\Http\Request;
 
@@ -137,13 +139,24 @@ class ParcelController extends Controller
         }
     }
 
-    public function parcelIngresosMeses(Request $request){
+    public function parcelIngresosMeses(Request $request)
+    {
         $parcel_id = $request->parcel_id;
         $mes_id = $request->mes_id;
 
         $parcels = Parcel::where('id', $parcel_id)->with(['ingresos' => function ($q) use ($mes_id) {
             $q->where('pagado', 0)->where('mes_id', $mes_id);
         }])->get();
+        return response()->json(['ok' => true, 'data' => $parcels], 200);
+    }
+
+
+    public function getAllByIdMes($id)
+    {
+        $parcels = Parcel::with(['lecturas' => function ($q) use ($id) {
+            $q->where('mes_id', $id);
+        }])->with('members')->get();
+
         return response()->json(['ok' => true, 'data' => $parcels], 200);
     }
 }

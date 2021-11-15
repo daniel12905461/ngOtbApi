@@ -233,4 +233,11 @@ class MesController extends Controller
         return response()->json(['ok' => true, 'data' => $meses], 200);
     }
 
+    public function getAllWithLectura(){
+
+        $meses = Mes::with('lecturas')->get();
+
+        return response()->json(['ok' => true, 'data' => $meses], 200);
+    }
+
 }

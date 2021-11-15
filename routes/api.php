@@ -46,6 +46,7 @@ Route::get('members/parcels/getall', 'Api\MemberController@getAllMemberswithParc
 Route::apiResource('parcels', 'Api\ParcelController');
 Route::post('parcels/mes_ingresos_parcel', 'Api\ParcelController@parcelIngresosMeses');
 Route::get('parcels/enabled/{id}', 'Api\ParcelController@enabled');
+Route::get('parcels/mes/{id}', 'Api\ParcelController@getAllByIdMes');
 
 Route::apiResource('settings', 'Api\SettingController');
 
@@ -64,7 +65,7 @@ Route::apiResource('monthly_payments', 'Api\MonthlyPaymentController');
 
 Route::apiResource('payments', 'Api\PaymentController');
 
-Route::get('mes/mes_ingresos_parcel/{parcel_id}', 'Api\MesController@mesesIngresosParcel');
+//Route::get('mes/mes_ingresos_parcel/{parcel_id}', 'Api\MesController@mesesIngresosParcel');
 
 Route::group([
     'prefix' => 'cuenta_ingresos',
@@ -137,12 +138,14 @@ Route::group([
         ->name('api.mes.mes.show')->where('id', '[0-9]+');
     Route::post('/', 'Api\MesController@store')
         ->name('api.mes.mes.store');
-    Route::put('mes/{mes}', 'Api\MesController@update')
+    Route::put('/{mes}', 'Api\MesController@update')
         ->name('api.mes.mes.update')->where('id', '[0-9]+');
-    Route::delete('/mes/{mes}', 'Api\MesController@destroy')
+    Route::delete('/{mes}', 'Api\MesController@destroy')
         ->name('api.mes.mes.destroy')->where('id', '[0-9]+');
-    Route::get('mes/mes_ingresos_parcel/{parcel_id}', 'Api\MesController@mesesIngresosParcel')
+    Route::get('/mes_ingresos_parcel/{parcel_id}', 'Api\MesController@mesesIngresosParcel')
        ->name('api.mes.mes.destroy');
+    Route::get('/lectura', 'Api\MesController@getAllWithLectura')
+       ->name('api.mes.mes.lectura');
 });
 
 Route::group([

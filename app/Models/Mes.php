@@ -18,10 +18,10 @@ class Mes extends Model
     protected $table = 'mes';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -30,9 +30,9 @@ class Mes extends Model
      * @var array
      */
     protected $fillable = [
-                  'nombre',
-                  'gestion'
-              ];
+        'nombre',
+        'gestion'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -56,7 +56,13 @@ class Mes extends Model
 
     public function ingresos()
     {
-        return $this->hasMany('App\Models\Ingreso','mes_id');
+        return $this->hasMany('App\Models\Ingreso', 'mes_id');
+    }
+
+    public function lecturas()
+    {
+//        todo falta mandar en su formato
+        return $this->hasMany('App\Models\Lectura', 'mes_id');
     }
 
 }
