@@ -71,6 +71,8 @@ class MesController extends Controller
              * buscar la lectura anterios segun  el mes id
              */
 
+            // daniel delgado
+
             $mes = new Mes();
             $mes->name = $request->input('name');
             $mes->year = $request->input('year');
