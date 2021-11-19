@@ -18,6 +18,7 @@ class CreateParcelsTable extends Migration
             $table->string('latitude');
             $table->string('length');
             $table->boolean('enabled');
+            $table->string('ultimalectura');
             $table->unsignedBigInteger('member_id');
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
             $table->timestamps();

@@ -17,6 +17,7 @@ class ParcelSeeder extends Seeder
         Parcel::create([
             'latitude' => '5665',
             'length' => '5665s',
+            'ultimalectura' => '555',
             'enabled' => 1,
             'member_id' => 5,
         ]);

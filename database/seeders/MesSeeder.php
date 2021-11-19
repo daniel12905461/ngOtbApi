@@ -16,23 +16,34 @@ class MesSeeder extends Seeder
     {
         Mes::create([
             'name' => 'Enero',
-            'year' => '2021',
+            'year' => 2021,
+            'index' => 1,
             'enabled' => 0,
         ]);
         Mes::create([
             'name' => 'Febrero',
-            'year' => '2021',
+            'year' => 2021,
+            'index' => 2,
             'enabled' => 0,
         ]);
         Mes::create([
             'name' => 'Marzo',
-            'year' => '2021',
+            'year' => 2021,
+            'index' => 3,
             'enabled' => 0,
         ]);
         Mes::create([
             'name' => 'Abril',
-            'year' => '2021',
-            'enabled' => 1,
+            'year' => 2021,
+            'index' => 4,
+            'enabled' => 0,
         ]);
+        Mes::create([
+            'name' => 'Mayo',
+            'year' => 2021,
+            'index' => 5,
+            'enabled' => 0,
+        ]);
+
     }
 }

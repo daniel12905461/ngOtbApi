@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Controllers\Api\Controller;
-
 use App\Models\Lectura;
 use App\Models\Mes;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Exception;
 use App\Models\Parcel;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class MesController extends Controller
 {
@@ -62,44 +61,73 @@ class MesController extends Controller
 
     public function store(Request $request)
     {
-        // try {
-            // $validator = $this->getValidator($request);
+        try {
+            DB::beginTransaction();
+            /**
+             * pos
+             * mes_id   actual
+             *parcel_id
+             * ----
+             * buscar la lectura anterios segun  el mes id
+             */
 
-            // if ($validator->fails()) {
-            //     return $this->errorResponse($validator->errors()->all());
-            // }
-
-            // $data = $this->getData($request);
-
-            // $mes = Mes::create($data);
             $mes = new Mes();
-            $mes->name =  $request->input('name');
-            $mes->year =  $request->input('year');
+            $mes->name = $request->input('name');
+            $mes->year = $request->input('year');
+//            $mes->index =  $request->input('index'); // 1 =>enero , 2=> febrero
+            $mes->index = $request->input('index'); // 1 =>enero , 2=> febrero
             $mes->enabled = true;
             $mes->save();
 
-            $parcels = Parcel::all();
-
-            foreach ($parcels as $parcel) {
-                $lectura = new Lectura();
-                $lectura->lecturaAnterior = 10;
-                // $payment->cubosExeso = $request->month;
-                // $payment->cubos = $request->month;
-                // $payment->fecha = false;
-                // $payment->total = $request->month;
-                $lectura->parcel_id = $parcel->id;
-                $lectura->mes_id = $mes->id;
-                $lectura->lecturado = false;
-                $lectura->save();
+            $lastMont = null;
+            if ($mes->index == '1') {
+                $lastMont = Mes::where('year', '=', (int)($mes->year) - 1)
+                    ->where('index', '=', 12)->first();
+            } else {
+                $lastMont = Mes::where('year', '=', (int)($mes->year))
+                    ->where('index', '=', ((int)$mes->index) - 1)
+                    ->first();
             }
 
+            $parcels = Parcel::where('enabled', '=', 1)->get();
+
+            foreach ($parcels as $parcel) {
+                $lastLectura = Lectura::where('mes_id', $lastMont->id)->first();
+
+
+                $lectura = new Lectura();
+                if ($lastLectura) {
+                    $lectura->lecturaAnterior = ($lastLectura->lecturaAnterior);
+                } else {
+
+                    $lastLectura = Lectura::where('parcel_id', $parcel->id)->latest();
+
+                    if ($lastLectura) {
+                        $lectura->lecturaAnterior = $parcel->ultimalectura;
+                    } else {
+                        $lectura->lecturaAnterior = ($lastLectura->lecturaAnterior);
+                    }
+                }
+
+                $lectura->lecturaActual = '';
+                $lectura->cubos = '';
+                $lectura->cubosExeso = 0;
+                $lectura->total = 0;
+//                $lectura->fecha = '';
+                $lectura->lecturado = false;
+                $lectura->mes_id = $mes->id;
+                $lectura->parcel_id = $parcel->id;
+                $lectura->save();
+            }
+            DB::commit();
             return $this->successResponse(
-                'Mes was successfully added.',
+                'Se creo todo con exito.',
                 $this->transform($mes)
             );
-        // } catch (Exception $exception) {
-        //     return $this->errorResponse('Unexpected error occurred while trying to process your request.');
-        // }
+        } catch (Exception $exception) {
+            DB::rollBack();
+            return $this->errorResponse($exception);
+        }
     }
 
     /**
@@ -226,14 +254,24 @@ class MesController extends Controller
         ];
     }
 
-    public function mesesIngresosParcel($parcel_id){
+    public function mesesIngresosParcel($parcel_id)
+    {
         $meses = Mes::with(['ingresos' => function ($q) use ($parcel_id) {
             $q->where('pagado', 0)->where('parcel_id', $parcel_id);
         }])->get();
         return response()->json(['ok' => true, 'data' => $meses], 200);
     }
 
-    public function getAllWithLectura(){
+    public function getAllWithLectura()
+    {
+
+        $meses = Mes::with('lecturas')->get();
+
+        return response()->json(['ok' => true, 'data' => $meses], 200);
+    }
+
+    public function getg(Request $request)
+    {
 
         $meses = Mes::with('lecturas')->get();
 

@@ -30,8 +30,10 @@ class Mes extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre',
-        'gestion'
+        'name',
+        'year',
+        'index',
+        'enabled',
     ];
 
     /**

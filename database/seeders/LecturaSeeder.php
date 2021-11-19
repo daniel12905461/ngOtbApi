@@ -24,5 +24,16 @@ class LecturaSeeder extends Seeder
             'parcel_id' => 1,
             'mes_id' => 4,
         ]);
+
+        Lectura::create([
+            'lecturaActual' => '5665',
+            'lecturaAnterior' => '5650',
+            'cubos' => '15',
+            'cubosExeso' => '0',
+            'fecha' => now(),
+            'lecturado' => 1,
+            'parcel_id' => 1,
+            'mes_id' => 5,
+        ]);
     }
 }

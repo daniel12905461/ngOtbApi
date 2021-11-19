@@ -16,7 +16,8 @@ class CreateMesTable extends Migration
         Schema::create('mes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('year');
+            $table->integer('year');
+            $table->integer('index');
             $table->boolean('enabled');
             $table->timestamps();
         });
