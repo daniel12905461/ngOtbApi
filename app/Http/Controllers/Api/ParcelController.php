@@ -155,7 +155,7 @@ class ParcelController extends Controller
     {
         $parcels = Parcel::with(['lecturas' => function ($q) use ($id) {
             $q->where('mes_id', $id);
-        }])->with('members')->get();
+        }])->with('members')->with('servicios')->get();
 
         return response()->json(['ok' => true, 'data' => $parcels], 200);
     }

@@ -161,4 +161,5 @@ Route::group([
         ->name('api.lecturas.lectura.update');
     Route::delete('/lectura/{lectura}', 'Api\LecturasController@destroy')
         ->name('api.lecturas.lectura.destroy');
+    Route::get('/registrar_lestura/{id}', 'Api\LecturasController@registrarLestura');
 });

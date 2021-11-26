@@ -65,7 +65,7 @@ class LecturasController extends Controller
             }
 
             $data = $this->getData($request);
-            
+
             $lectura = Lectura::create($data);
 
             return $this->successResponse(
@@ -112,7 +112,7 @@ class LecturasController extends Controller
             }
 
             $data = $this->getData($request);
-            
+
             $lectura = Lectura::findOrFail($id);
             $lectura->update($data);
 
@@ -146,7 +146,7 @@ class LecturasController extends Controller
             return $this->errorResponse('Unexpected error occurred while trying to process your request.');
         }
     }
-    
+
     /**
      * Gets a new validator instance with the defined rules.
      *
@@ -160,17 +160,17 @@ class LecturasController extends Controller
             'lectura_actual' => 'required|string|min:1|max:255',
             'fecha' => 'required|string|min:1',
             'parcel_id' => 'required',
-            'mes_id' => 'required', 
+            'mes_id' => 'required',
         ];
 
         return Validator::make($request->all(), $rules);
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
-     * @param Illuminate\Http\Request\Request $request 
+     * @param Illuminate\Http\Request\Request $request
      * @return array
      */
     protected function getData(Request $request)
@@ -179,10 +179,10 @@ class LecturasController extends Controller
                 'lectura_actual' => 'required|string|min:1|max:255',
             'fecha' => 'required|string|min:1',
             'parcel_id' => 'required',
-            'mes_id' => 'required', 
+            'mes_id' => 'required',
         ];
 
-        
+
         $data = $request->validate($rules);
 
 
@@ -209,5 +209,17 @@ class LecturasController extends Controller
         ];
     }
 
+    public function registrarLestura(Request $request, $id)
+    {
+        $lectura = Lectura::find($id);
+        $lectura->lecturaActual = $request->input('lecturaActual');
+        $lectura->cubos = $request->input('cubos');
+        $lectura->cubosExeso = $request->input('cubosExeso');
+        $lectura->total = $request->input('total');
+        $lectura->fecha = now();
+        $lectura->lecturado = true;
+        $lectura->save();
 
+        return response()->json(['ok' => true, 'data' => $lectura], 200);
+    }
 }

@@ -115,7 +115,7 @@ class MesController extends Controller
                 $lectura->cubos = '';
                 $lectura->cubosExeso = 0;
                 $lectura->total = 0;
-//                $lectura->fecha = '';
+                $lectura->fecha = now();
                 $lectura->lecturado = false;
                 $lectura->mes_id = $mes->id;
                 $lectura->parcel_id = $parcel->id;
@@ -258,9 +258,15 @@ class MesController extends Controller
 
     public function mesesIngresosParcel($parcel_id)
     {
-        $meses = Mes::with(['ingresos' => function ($q) use ($parcel_id) {
+        // $meses = Mes::with(['ingresos' => function ($q) use ($parcel_id) {
+        //     $q->where('pagado', 0)->where('parcel_id', $parcel_id);
+        // }])->get();
+        // return response()->json(['ok' => true, 'data' => $meses], 200);
+        $meses = Mes::withCount(['ingresos' => function ($q) use ($parcel_id) {
             $q->where('pagado', 0)->where('parcel_id', $parcel_id);
-        }])->get();
+        }])->with(['ingresos' => function ($q) use ($parcel_id) {
+            $q->where('pagado', 0)->where('parcel_id', $parcel_id);
+        }])->having('ingresos_count', '>=', 1)->get();
         return response()->json(['ok' => true, 'data' => $meses], 200);
     }
 

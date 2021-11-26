@@ -18,13 +18,21 @@ class Parcel extends Model
     {
         return $this->hasMany('App\Models\Ingreso');
     }
+
     public function lecturas()
     {
         return $this->hasMany('App\Models\Lectura');
     }
+
     public function members()
     {
         return $this->belongsToMany(
             'App\Models\Member', 'member_parcels');
+    }
+
+    public function servicios()
+    {
+        return $this->belongsToMany(
+            'App\Models\Servicio', 'parcel_servicios');
     }
 }
