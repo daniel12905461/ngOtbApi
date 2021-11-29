@@ -14,3 +14,7 @@ php artisan create:api-scaffold  Mes --with-migration --fields=id,nombre,gestion
 php artisan create:api-scaffold  Lectura --table-exists
 
 php artisan create:api-scaffold  Ingreso --table-exists --force
+
+php artisan create:api-scaffold  setting --table-exists
+
+

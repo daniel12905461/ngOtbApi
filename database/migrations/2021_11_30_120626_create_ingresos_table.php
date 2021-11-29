@@ -41,6 +41,9 @@ class CreateIngresosTable extends Migration
             $table->unsignedBigInteger('mes_id')->unsigned()->nullable();
             $table->foreign('mes_id')->references('id')->on('mes');
 
+            $table->unsignedBigInteger('multa_id')->unsigned()->nullable();
+            $table->foreign('multa_id')->references('id')->on('multas')->onDelete('cascade');;
+
             $table->timestamps();
         });
     }
